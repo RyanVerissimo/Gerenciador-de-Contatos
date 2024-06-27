@@ -2,20 +2,21 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f3f3f3;
+    background-color: #222;
+    color: #ddd;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: #333;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2 {
-    color: #333;
+    color: #ff6c00;
     text-align: center;
 }
 
@@ -29,6 +30,7 @@ h1, h2 {
 
 label {
     font-weight: bold;
+    color: #ddd;
 }
 
 input[type="text"],
@@ -37,29 +39,45 @@ input[type="email"],
 button {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     border-radius: 5px;
+    background-color: #444;
+    color: #ddd;
 }
 
 input[type="text"],
 input[type="tel"],
 input[type="email"] {
     margin-left: -10px;
+    border: 1px solid #ff6c00;
 }
 
-button {
-    background-color: #007bff;
+button:not(.favorite-button) {
+    background-color: #ff6c00; /* Laranja neon */
     color: #fff;
     cursor: pointer;
 }
 
+.themebutton {
+    display: flex;
+    justify-content: center;
+}
+
+#toggle-theme-btn {
+    width: 50px;
+}
+
 button:hover {
-    background-color: #0056b3;
+    background-color: #ff8000; /* Laranja mais claro ao passar o mouse */
 }
 
 #contacts-container {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #555;
     padding-top: 20px;
+}
+
+#contacts-container .contatos {
+    margin-bottom: 20px;
 }
 
 #contacts-list {
@@ -71,21 +89,27 @@ button:hover {
 .contact-item {
     margin-bottom: 10px;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #555;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .contact-item h3 {
     margin-top: 0;
     margin-bottom: 5px;
-    color: #333;
+    color: #ddd;
     text-decoration: none; 
 }
 
 .contact-item p {
     margin: 0;
-    color: #666;
+    color: #ccc;
 }
 
 .contact-buttons {
@@ -110,13 +134,14 @@ button:hover {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #333;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     border-radius: 5px;
     width: 80%;
     max-width: 400px;
+    color: #ddd;
 }
 
 .close {
@@ -124,13 +149,13 @@ button:hover {
     top: 10px;
     right: 20px;
     font-size: 28px;
+    color: #ddd;
     cursor: pointer;
 }
 
 .close:hover {
-    color: #333;
+    color: #aaa;
 }
-
 
 .modal input[type="text"],
 .modal input[type="tel"],
@@ -139,18 +164,24 @@ button:hover {
     width: calc(100% - 22px);
     margin: 10px 0;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     border-radius: 5px;
+    background-color: #444;
+    color: #ddd;
 }
 
 .modal button {
-    background-color: #007bff;
+    background-color: #ff6c00; /* Laranja neon */
     color: #fff;
     cursor: pointer;
 }
 
 .modal button:hover {
-    background-color: #0056b3;
+    background-color: #ff8000; /* Laranja mais claro ao passar o mouse */
+}
+
+.favorite-button.favorite {
+    background-color: #ff6c00;
 }
 
 
@@ -179,3 +210,62 @@ button:hover {
         padding: 8px;
     }
 }
+
+/* Adicionando o tema claro */
+.light-theme {
+    background-color: #f0f0f0; /* Fundo cinza claro */
+    color: #333; /* Cor de texto principal */
+}
+
+.light-theme .container {
+    background-color: #686565; /* Fundo branco para o container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.light-theme h1, .light-theme h2 {
+    color: #ff9800; /* Azul escuro para títulos */
+}
+
+.light-theme input[type="text"],
+.light-theme input[type="tel"],
+.light-theme input[type="email"],
+.light-theme button {
+    border-color: #252020; /* Cor da borda cinza claro */
+    background-color: #ccc; /* Fundo cinza para inputs e botões */
+    color: #333; /* Cor de texto principal para inputs e botões */
+}
+
+.light-theme input[type="text"],
+.light-theme input[type="tel"],
+.light-theme input[type="email"] {
+    border:2px solid #3b3030; /* Cor da borda cinza claro para inputs */
+}
+
+.light-theme button {
+    background-color: #ff9800; /* Laranja */
+    color: #fff; /* Texto branco para botões */
+}
+
+.light-theme button:hover {
+    background-color: #fb8c00; /* Laranja mais escuro ao passar o mouse */
+}
+
+.light-theme #contacts-container {
+    border-top-color: #ccc; /* Cor da borda superior cinza claro */
+}
+
+.light-theme .contact-item {
+    background-color: #e0e0e0; /* Fundo cinza para itens de contato */
+    border-color: #ccc; /* Cor da borda cinza claro para itens de contato */
+}
+
+.light-theme .close {
+    color: #333; /* Cor de texto principal para o botão fechar */
+}
+
+.light-theme .modal-content {
+    background-color: #ffffff; /* Fundo branco para o conteúdo modal */
+    color: #333; /* Cor de texto principal para o conteúdo modal */
+    border-color: #ccc; /* Cor da borda cinza claro para o conteúdo modal */
+}
+
