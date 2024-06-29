@@ -1,5 +1,7 @@
 let contacts = [];
 let selectedContactIndex;
+let favoriteContactsIds = {};
+let showOnlyFavorites = false;
 
 document.getElementById('toggle-theme-btn').addEventListener('click', function() {
     const body = document.body;
@@ -20,11 +22,13 @@ function addContact(event) {
     event.preventDefault();
     const form = event.target;
     const name = form.elements.name.value;
-    const phone = form.elements.phone.value;
+    let phone = form.elements.phone.value;
     const email = form.elements.email.value;
 
+    phone = formatPhoneNumber(phone);
+
     if (name && phone && email) {
-        const contact = { name, phone, email };
+        const contact = { id: Date.now(), name, phone, email, favorite: false };
         contacts.push(contact);
         displayContacts();
         clearForm();
@@ -33,46 +37,42 @@ function addContact(event) {
     }
 }
 
-// function displayContacts() {
-//     const contactsList = document.getElementById('contacts-list');
-//     contactsList.innerHTML = '';
-//     contacts.forEach((contact, index) => {
-//         const listItem = document.createElement('li');
-//         listItem.classList.add('contact-item');
-//         listItem.innerHTML = `
-//             <div class="contact-info">
-//                 <h3>${contact.name}</h3>
-//                 <button class="favorite-button" style="width: 40px;" onclick="toggleFavorite(${index})">
-//                     <i class="ph ph-heart-straight""></i>
-//                 </button>
-//             </div>
-//             <p>Telefone: ${contact.phone}</p>
-//             <p>E-mail: ${contact.email}</p>
-//             <div class="contact-buttons">
-//                 <button onclick="openEditModal(${index})">Editar</button>
-//                 <button onclick="deleteContact(${index})">Excluir</button>
-//             </div>
-//         `;
-//         contactsList.appendChild(listItem);
-//     });
-// }
+function formatPhoneNumber(phone) {
+    const cleaned = phone.replace(/\D/g, '');
 
-function toggleFavorite(index) {
-    contacts[index].favorite = !contacts[index].favorite; // Alternar o estado de favorito
+    const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
 
-    displayContacts(); // Atualizar a exibição dos contatos
+    if (match) {
+        return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+
+    return phone;
 }
 
+function toggleFavorite(index) {
+    const contact = contacts[index];
+    contact.favorite = !contact.favorite;
+
+    if (contact.favorite) {
+        favoriteContactsIds[contact.id] = true;
+    } else {
+        delete favoriteContactsIds[contact.id];
+    }
+
+    displayContacts();
+}
 
 function displayContacts() {
     const contactsList = document.getElementById('contacts-list');
     contactsList.innerHTML = '';
 
-    contacts.forEach((contact, index) => {
+    const filteredContacts = showOnlyFavorites ? getFavoriteContacts() : contacts;
+
+    filteredContacts.forEach((contact, index) => {
         const listItem = document.createElement('li');
         listItem.classList.add('contact-item');
 
-        const favoriteClass = contact.favorite ? 'favorite' : ''; // Verifica se é favorito
+        const favoriteClass = contact.favorite ? 'favorite' : '';
 
         listItem.innerHTML = `
             <div class="contact-info">
@@ -92,9 +92,6 @@ function displayContacts() {
         contactsList.appendChild(listItem);
     });
 }
-
-
-
 
 function clearForm() {
     document.getElementById('contact-form').reset();
@@ -118,8 +115,10 @@ function saveContact() {
     const newPhone = document.getElementById('edit-phone').value;
     const newEmail = document.getElementById('edit-email').value;
 
-    if (newName && newPhone && newEmail) {
-        const editedContact = { name: newName, phone: newPhone, email: newEmail };
+    const formattedPhone = formatPhoneNumber(newPhone);
+
+    if (newName && formattedPhone && newEmail) {
+        const editedContact = { name: newName, phone: formattedPhone, email: newEmail };
         const index = selectedContactIndex;
         contacts[index] = editedContact;
         displayContacts();
@@ -132,9 +131,52 @@ function saveContact() {
 function deleteContact(index) {
     const confirmation = confirm('Tem certeza de que deseja excluir este contato?');
     if (confirmation) {
+        delete favoriteContactsIds[contacts[index].id];
         contacts.splice(index, 1);
         displayContacts();
     }
+}
+
+function showFavorites() {
+    showOnlyFavorites = !showOnlyFavorites;
+
+    if (showOnlyFavorites) {
+        const favoriteContacts = getFavoriteContacts();
+        displayFilteredContacts(favoriteContacts);
+    } else {
+        displayContacts();
+    }
+}
+
+function getFavoriteContacts() {
+    return contacts.filter(contact => favoriteContactsIds[contact.id]);
+}
+
+function displayFilteredContacts(filteredContacts) {
+    const contactsList = document.getElementById('contacts-list');
+    contactsList.innerHTML = '';
+
+    filteredContacts.forEach((contact, index) => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('contact-item');
+
+        listItem.innerHTML = `
+            <div class="contact-info">
+                <h3>${contact.name}</h3>
+                <button class="favorite-button favorite" style="width: 40px;" onclick="toggleFavorite(${index})">
+                    <i class="ph ph-heart-straight"></i>
+                </button>
+            </div>
+            <p>Telefone: ${contact.phone}</p>
+            <p>E-mail: ${contact.email}</p>
+            <div class="contact-buttons">
+                <button onclick="openEditModal(${index})">Editar</button>
+                <button onclick="deleteContact(${index})">Excluir</button>
+            </div>
+        `;
+
+        contactsList.appendChild(listItem);
+    });
 }
 
 displayContacts();
@@ -142,4 +184,3 @@ displayContacts();
 document.getElementById('contact-form').addEventListener('submit', addContact);
 document.getElementById('edit-modal-close').addEventListener('click', closeEditModal);
 document.getElementById('edit-modal-save').addEventListener('click', saveContact);
-

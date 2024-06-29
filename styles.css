@@ -43,17 +43,11 @@ button {
     border-radius: 5px;
     background-color: #444;
     color: #ddd;
-}
-
-input[type="text"],
-input[type="tel"],
-input[type="email"] {
-    margin-left: -10px;
-    border: 1px solid #ff6c00;
+    box-sizing: border-box;
 }
 
 button:not(.favorite-button) {
-    background-color: #ff6c00; /* Laranja neon */
+    background-color: #ff6c00;
     color: #fff;
     cursor: pointer;
 }
@@ -68,7 +62,7 @@ button:not(.favorite-button) {
 }
 
 button:hover {
-    background-color: #ff8000; /* Laranja mais claro ao passar o mouse */
+    background-color: #ff8000;
 }
 
 #contacts-container {
@@ -104,7 +98,7 @@ button:hover {
     margin-top: 0;
     margin-bottom: 5px;
     color: #ddd;
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .contact-item p {
@@ -168,26 +162,103 @@ button:hover {
     border-radius: 5px;
     background-color: #444;
     color: #ddd;
+    box-sizing: border-box;
 }
 
 .modal button {
-    background-color: #ff6c00; /* Laranja neon */
+    background-color: #ff6c00;
     color: #fff;
     cursor: pointer;
 }
 
 .modal button:hover {
-    background-color: #ff8000; /* Laranja mais claro ao passar o mouse */
+    background-color: #ff8000;
 }
 
 .favorite-button.favorite {
     background-color: #ff6c00;
 }
 
+.light-theme {
+    background-color: #f9fbe7;
+    color: #333; 
+}
+
+.light-theme .contact-info h3,
+.light-theme .contact-item p {
+    color: #000;
+}
+
+
+.light-theme .container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme h1, .light-theme h2 {
+    color: #66bb6a;
+}
+
+.light-theme label {
+    font-weight: bold;
+    color: #000;
+}
+
+.light-theme input[type="text"],
+.light-theme input[type="tel"],
+.light-theme input[type="email"],
+.light-theme button {
+    border-color: #2196f3;
+    background-color: #fafafa;
+    color: #333;
+}
+
+.light-theme input[type="text"],
+.light-theme input[type="tel"],
+.light-theme input[type="email"] {
+    border: 2px solid #2196f3;
+}
+
+.light-theme button:not(.favorite-button) {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.light-theme button:hover {
+    background-color: #66bb6a;
+}
+
+.light-theme .favorite-button.favorite {
+    background-color: #66bb6a;
+}
+
+
+.light-theme #contacts-container {
+    border-top-color: #ccc;
+}
+
+.light-theme .contact-item {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+.light-theme .close {
+    color: #333;
+}
+
+.light-theme .modal-content {
+    background-color: #ffffff;
+    color: #333;
+    border-color: #ccc;
+}
+
+
+
+
 
 @media screen and (max-width: 600px) {
     body {
-        font-size: 14px; 
+        font-size: 14px;
     }
 
     .container {
@@ -210,62 +281,3 @@ button:hover {
         padding: 8px;
     }
 }
-
-/* Adicionando o tema claro */
-.light-theme {
-    background-color: #f0f0f0; /* Fundo cinza claro */
-    color: #333; /* Cor de texto principal */
-}
-
-.light-theme .container {
-    background-color: #686565; /* Fundo branco para o container */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-.light-theme h1, .light-theme h2 {
-    color: #ff9800; /* Azul escuro para títulos */
-}
-
-.light-theme input[type="text"],
-.light-theme input[type="tel"],
-.light-theme input[type="email"],
-.light-theme button {
-    border-color: #252020; /* Cor da borda cinza claro */
-    background-color: #ccc; /* Fundo cinza para inputs e botões */
-    color: #333; /* Cor de texto principal para inputs e botões */
-}
-
-.light-theme input[type="text"],
-.light-theme input[type="tel"],
-.light-theme input[type="email"] {
-    border:2px solid #3b3030; /* Cor da borda cinza claro para inputs */
-}
-
-.light-theme button {
-    background-color: #ff9800; /* Laranja */
-    color: #fff; /* Texto branco para botões */
-}
-
-.light-theme button:hover {
-    background-color: #fb8c00; /* Laranja mais escuro ao passar o mouse */
-}
-
-.light-theme #contacts-container {
-    border-top-color: #ccc; /* Cor da borda superior cinza claro */
-}
-
-.light-theme .contact-item {
-    background-color: #e0e0e0; /* Fundo cinza para itens de contato */
-    border-color: #ccc; /* Cor da borda cinza claro para itens de contato */
-}
-
-.light-theme .close {
-    color: #333; /* Cor de texto principal para o botão fechar */
-}
-
-.light-theme .modal-content {
-    background-color: #ffffff; /* Fundo branco para o conteúdo modal */
-    color: #333; /* Cor de texto principal para o conteúdo modal */
-    border-color: #ccc; /* Cor da borda cinza claro para o conteúdo modal */
-}
-

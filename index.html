@@ -37,7 +37,7 @@
         <div id="contacts-container">
             <div class="contatos">
                 <h2>Contatos</h2>
-                <button>FAVORITOS<i class="ph ph-heart-straight"></i></button>
+                <button onclick="showFavorites()">FAVORITOS <i class="ph ph-heart-straight"></i></button>
             </div>
 
             <ul id="contacts-list"></ul>
@@ -46,7 +46,7 @@
 
     <div id="edit-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" id="edit-modal-close">&times;</span>
             <h2>Editar Contato</h2>
             <form id="edit-contact-form">
                 <div class="form-group">
@@ -61,7 +61,7 @@
                     <label for="edit-email">E-mail:</label>
                     <input type="email" id="edit-email" name="email" required>
                 </div>
-                <button type="button" onclick="saveContact()">Salvar</button>
+                <button type="button" id="edit-modal-save">Salvar</button>
             </form>
         </div>
     </div>
